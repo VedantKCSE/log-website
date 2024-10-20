@@ -18,14 +18,14 @@ const Navbar = ({ exportToPDF, exportLogs, importLogsHandler }) => {
   const drawerItems = (
     <List>
       <ListItem button onClick={exportToPDF}>
-        <ListItemText primary="Export to PDF" />
+        <ListItemText primary="Export to PDF 📄" />
       </ListItem>
       <ListItem button onClick={exportLogs}>
-        <ListItemText primary="Export Logs" />
+        <ListItemText primary="Export Logs 💾" />
       </ListItem>
       <ListItem button>
         <label htmlFor="import-logs-drawer">
-          <ListItemText primary="Import Logs" />
+          <ListItemText primary="Import Logs 📥" />
         </label>
         <input
           type="file"
@@ -42,9 +42,10 @@ const Navbar = ({ exportToPDF, exportLogs, importLogsHandler }) => {
     <AppBar position="static">
       <Toolbar>
         {/* Logo or title */}
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          Activity Log
+        <Typography variant="h5" component="div" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
+         🕹️ Activity Logger 🖥️
         </Typography>
+
 
         {isMobile ? (
           // Mobile view - Show a menu icon and open drawer
@@ -65,10 +66,10 @@ const Navbar = ({ exportToPDF, exportLogs, importLogsHandler }) => {
           // Desktop view - Show buttons directly in the navbar
           <Box sx={{ display: 'flex', gap: 2 }}>
             <Button color="inherit" onClick={exportToPDF}>
-              Export to PDF
+              Export to PDF 📄
             </Button>
             <Button color="inherit" onClick={exportLogs}>
-              Export Logs
+              Export Logs 💾
             </Button>
             <input
               type="file"
@@ -79,7 +80,7 @@ const Navbar = ({ exportToPDF, exportLogs, importLogsHandler }) => {
             />
             <label htmlFor="import-logs-navbar">
               <Button color="inherit" component="span">
-                Import Logs
+                Import Logs 📥
               </Button>
             </label>
           </Box>

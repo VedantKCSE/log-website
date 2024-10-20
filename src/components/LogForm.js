@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, TextField, MenuItem, Box } from '@mui/material';
 
-const categories = ['Learning', 'Courses', 'Work'];
+const categories = ['Learning', 'Courses', 'Project','Self-Development'];
 
 const LogForm = ({ addLog }) => {
   const [log, setLog] = useState('');

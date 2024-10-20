@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, FormControl, InputLabel, Select, MenuItem, Typography, Paper } from '@mui/material';
+import { FormControl, InputLabel, Select, MenuItem, Typography, Paper } from '@mui/material';
 
 const months = [
   { value: '01', label: 'January' },
@@ -19,8 +19,8 @@ const months = [
 const FilterBar = ({ selectedCategory, setSelectedCategory, selectedMonth, setSelectedMonth, selectedYear, setSelectedYear }) => {
   return (
     <Paper elevation={3} sx={{ padding: 2, height: '100%', display: 'flex', flexDirection: 'column' }}>
-      <Typography variant="h6" gutterBottom>
-        Filters
+      <Typography variant="h6" gutterBottom sx={{fontWeight: 'bold' }}>
+        🔎 Filters
       </Typography>
       <FormControl sx={{ minWidth: 120, marginBottom: 2 }}>
         <InputLabel>Category</InputLabel>
@@ -31,7 +31,8 @@ const FilterBar = ({ selectedCategory, setSelectedCategory, selectedMonth, setSe
           <MenuItem value="All">All</MenuItem>
           <MenuItem value="Learning">Learning</MenuItem>
           <MenuItem value="Courses">Courses</MenuItem>
-          <MenuItem value="Work">Work</MenuItem>
+          <MenuItem value="Project">Project</MenuItem>
+          <MenuItem value="Self-Development">Self-Development</MenuItem>
         </Select>
       </FormControl>
 

@@ -106,12 +106,12 @@ function App() {
           fontWeight: 'bold',
           borderRadius: '50%'
         }} variant="contained" color="primary" onClick={() => setOpenLogForm(true)}>
-          +
+          ➕
         </Button>
       </Box>
 
       <Dialog open={openLogForm} onClose={() => setOpenLogForm(false)}>
-        <DialogTitle>Add a new Log</DialogTitle>
+        <DialogTitle>Add a new Activity 🕹️</DialogTitle>
         <DialogContent>
           <LogForm addLog={addLog} />
         </DialogContent>
