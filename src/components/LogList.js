@@ -3,7 +3,7 @@ import { List, ListItem, ListItemText, Paper, Typography } from '@mui/material';
 
 const LogList = ({ logs }) => {
   return (
-    <Paper sx={{ margin: '20px auto', padding: 2, maxWidth: 600 }}>
+    <Paper sx={{ padding: 3, height: '100%' }}>
       <Typography variant="h5" gutterBottom>
         Logs
       </Typography>
