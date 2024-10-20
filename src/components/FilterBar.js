@@ -18,8 +18,14 @@ const months = [
 
 const FilterBar = ({ selectedCategory, setSelectedCategory, selectedMonth, setSelectedMonth, selectedYear, setSelectedYear }) => {
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'center', margin: '20px 0' }}>
-      <FormControl sx={{ minWidth: 120, marginRight: 2 }}>
+    <Box sx={{ 
+      display: 'flex', 
+      flexWrap: 'wrap', 
+      justifyContent: 'center', 
+      margin: '20px 0', 
+      gap: 2 
+    }}>
+      <FormControl sx={{ minWidth: 120 }}>
         <InputLabel>Category</InputLabel>
         <Select
           value={selectedCategory}
@@ -29,11 +35,10 @@ const FilterBar = ({ selectedCategory, setSelectedCategory, selectedMonth, setSe
           <MenuItem value="Learning">Learning</MenuItem>
           <MenuItem value="Courses">Courses</MenuItem>
           <MenuItem value="Work">Work</MenuItem>
-          {/* Add more categories as needed */}
         </Select>
       </FormControl>
 
-      <FormControl sx={{ minWidth: 120, marginRight: 2 }}>
+      <FormControl sx={{ minWidth: 120 }}>
         <InputLabel>Month</InputLabel>
         <Select
           value={selectedMonth}
