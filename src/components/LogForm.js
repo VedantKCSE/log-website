@@ -56,7 +56,7 @@ const LogForm = ({ addLog }) => {
           </MenuItem>
         ))}
       </TextField>
-      <Button type="submit" variant="contained" color="primary">
+      <Button type="submit" variant="outlined" color="FFB52E">
         Add Log
       </Button>
     </Box>
