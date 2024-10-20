@@ -52,7 +52,11 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <Navbar />
+      <Navbar
+        exportToPDF={() => exportToPDF(filteredLogs, selectedCategory)}
+        exportLogs={() => exportLogs(logs)}
+        importLogsHandler={handleImportLogs}
+      />
 
       {/* Grid layout for FilterBar and LogList */}
       <Box sx={{
