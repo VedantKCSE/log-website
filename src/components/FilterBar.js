@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { Box, FormControl, InputLabel, Select, MenuItem, Typography, Paper } from '@mui/material';
 
 const months = [
   { value: '01', label: 'January' },
@@ -18,14 +18,11 @@ const months = [
 
 const FilterBar = ({ selectedCategory, setSelectedCategory, selectedMonth, setSelectedMonth, selectedYear, setSelectedYear }) => {
   return (
-    <Box sx={{ 
-      display: 'flex', 
-      flexWrap: 'wrap', 
-      justifyContent: 'center', 
-      margin: '20px 0', 
-      gap: 2 
-    }}>
-      <FormControl sx={{ minWidth: 120 }}>
+    <Paper elevation={3} sx={{ padding: 2, height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <Typography variant="h6" gutterBottom>
+        Filters
+      </Typography>
+      <FormControl sx={{ minWidth: 120, marginBottom: 2 }}>
         <InputLabel>Category</InputLabel>
         <Select
           value={selectedCategory}
@@ -38,7 +35,7 @@ const FilterBar = ({ selectedCategory, setSelectedCategory, selectedMonth, setSe
         </Select>
       </FormControl>
 
-      <FormControl sx={{ minWidth: 120 }}>
+      <FormControl sx={{ minWidth: 120, marginBottom: 2 }}>
         <InputLabel>Month</InputLabel>
         <Select
           value={selectedMonth}
@@ -63,7 +60,7 @@ const FilterBar = ({ selectedCategory, setSelectedCategory, selectedMonth, setSe
           ))}
         </Select>
       </FormControl>
-    </Box>
+    </Paper>
   );
 };
 

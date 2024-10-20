@@ -52,17 +52,43 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
+      <Navbar />
 
-      {/* Pass necessary props to Navbar */}
-      <Navbar
-        exportToPDF={() => exportToPDF(filteredLogs, selectedCategory)}
-        exportLogs={() => exportLogs(logs)}
-        importLogsHandler={handleImportLogs}
-      />
-
-      {/* Button to open the modal */}
+      {/* Grid layout for FilterBar and LogList */}
       <Box sx={{
-        // right bottom css
+        display: 'grid',
+        gridTemplateColumns: { xs: '1fr', md: '250px 1fr' }, // Stacked on small screens, sidebar on larger screens
+        gridTemplateRows: { xs: 'auto 1fr', md: '1fr' }, // Auto height for FilterBar on mobile, full height on larger screens
+        gridGap: '20px',
+        height: 'calc(100vh - 64px)', // Full screen height minus navbar
+        padding: '20px',
+        overflow: 'hidden', // Prevent overflow when content is too large
+      }}>
+        {/* Sidebar FilterBar with flexible height */}
+        <Box sx={{
+          height: { xs: 'auto', md: '100%' }, // Auto height on mobile, full height on larger screens
+          overflowY: 'auto',
+        }}>
+          <FilterBar
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+            selectedMonth={selectedMonth}
+            setSelectedMonth={setSelectedMonth}
+            selectedYear={selectedYear}
+            setSelectedYear={setSelectedYear}
+          />
+        </Box>
+
+        {/* LogList should occupy remaining space */}
+        <Box sx={{
+          height: { xs: 'auto', md: '100%' }, // Auto on mobile, full height on larger screens
+          overflowY: 'auto',
+        }}>
+          <LogList logs={filteredLogs} />
+        </Box>
+      </Box>
+
+      <Box sx={{
         position: 'fixed',
         bottom: 16,
         right: 16,
@@ -80,7 +106,6 @@ function App() {
         </Button>
       </Box>
 
-      {/* Modal for the LogForm */}
       <Dialog open={openLogForm} onClose={() => setOpenLogForm(false)}>
         <DialogTitle>Add a new Log</DialogTitle>
         <DialogContent>
@@ -92,17 +117,6 @@ function App() {
           </Button>
         </DialogActions>
       </Dialog>
-
-      <FilterBar
-        selectedCategory={selectedCategory}
-        setSelectedCategory={setSelectedCategory}
-        selectedMonth={selectedMonth}
-        setSelectedMonth={setSelectedMonth}
-        selectedYear={selectedYear}
-        setSelectedYear={setSelectedYear}
-      />
-
-      <LogList logs={filteredLogs} />
     </ThemeProvider>
   );
 }
