@@ -6,6 +6,7 @@ const categories = ['Learning', 'Courses', 'Project','Self-Development'];
 const LogForm = ({ addLog }) => {
   const [log, setLog] = useState('');
   const [category, setCategory] = useState('');
+  const [resourceLink, setResourceLink] = useState('');  // New state for resource link
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -13,10 +14,12 @@ const LogForm = ({ addLog }) => {
       log,
       category,
       date: new Date().toLocaleString(),
+      resourceLink,  // Include resource link in the new log entry
     };
     addLog(newLog);
     setLog('');  // Clear form after submission
     setCategory('');
+    setResourceLink('');  // Clear resource link after submission
   };
 
   return (
@@ -56,6 +59,13 @@ const LogForm = ({ addLog }) => {
           </MenuItem>
         ))}
       </TextField>
+      <TextField
+        label="Resource Link (optional)"
+        variant="outlined"
+        value={resourceLink}
+        onChange={(e) => setResourceLink(e.target.value)}
+        fullWidth
+      />
       <Button type="submit" variant="outlined" color="FFB52E">
         Add Log
       </Button>
