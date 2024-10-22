@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ThemeProvider, CssBaseline, Button, Box, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
+import { ThemeProvider, CssBaseline, Button, Box, Dialog, DialogTitle, DialogContent, DialogActions, Typography } from '@mui/material';
 import Navbar from './components/Navbar';
 import LogForm from './components/LogForm';
 import LogList from './components/LogList';
@@ -60,6 +60,7 @@ function App() {
 
       {/* Grid layout for FilterBar and LogList */}
       <Box sx={{
+
         display: 'grid',
         gridTemplateColumns: { xs: '1fr', md: '250px 1fr' }, // Stacked on small screens, sidebar on larger screens
         gridTemplateRows: { xs: 'auto 1fr', md: '1fr' }, // Auto height for FilterBar on mobile, full height on larger screens
@@ -88,6 +89,9 @@ function App() {
           height: { xs: 'auto', md: '100%' }, // Auto on mobile, full height on larger screens
           overflowY: 'auto',
         }}>
+
+            
+          
           <LogList logs={filteredLogs} />
         </Box>
       </Box>
