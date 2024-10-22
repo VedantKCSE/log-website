@@ -3,10 +3,29 @@ import { List, ListItem, ListItemText, Paper, Typography, Button, Box, Divider }
 
 const LogList = ({ logs }) => {
   return (
-    <Paper sx={{ padding: 3, height: '100%' }}>
-      <Typography variant="h5" gutterBottom sx={{ fontWeight: 'bold' }}>
+    <Paper sx={{ padding: 3, height: '100%', background:'#121212'}}>
+      {/* <Typography variant="h5" gutterBottom sx={{ fontWeight: 'bold' }}>
+        Your Activity 🎯
+      </Typography> */}
+      <Typography
+        variant="h5"
+        gutterBottom
+        sx={{
+          fontWeight: 'bold',
+          position: 'sticky',    // Makes the text sticky
+          top: 0,                // Stick to the top of the Paper component
+          backgroundColor: 'rgba(41, 41, 41, 0.8)', // Semi-transparent background for glass effect
+          backdropFilter: 'blur(10px)',  // Glassmorphism blur effect
+          padding: '16px',       // Adds padding around the text
+          borderRadius: '12px',  // Slightly rounded corners for smoothness
+          zIndex: 1,             // Keeps it above other content
+          boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)', // Adds a subtle shadow for depth
+        }}
+      >
         Your Activity 🎯
       </Typography>
+
+
       <List>
         {logs.length === 0 ? (
           <Typography>No Activity added yet 🥺</Typography>
