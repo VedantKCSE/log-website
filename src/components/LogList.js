@@ -3,7 +3,7 @@ import { List, ListItem, ListItemText, Paper, Typography, Button, Box, Divider }
 
 const LogList = ({ logs }) => {
   return (
-    <Paper sx={{ padding: 3, height: '100%', background:'#121212'}}>
+    <Paper sx={{ height: '100%', background:'#121212'}}>
       {/* <Typography variant="h5" gutterBottom sx={{ fontWeight: 'bold' }}>
         Your Activity 🎯
       </Typography> */}
@@ -20,6 +20,7 @@ const LogList = ({ logs }) => {
           borderRadius: '12px',  // Slightly rounded corners for smoothness
           zIndex: 1,             // Keeps it above other content
           boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)', // Adds a subtle shadow for depth
+          border: '1px solid #FFB52E'
         }}
       >
         Your Activity 🎯

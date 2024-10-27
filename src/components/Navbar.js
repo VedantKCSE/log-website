@@ -42,7 +42,7 @@ const Navbar = ({ exportToPDF, exportLogs, importLogsHandler }) => {
     <AppBar position="static">
       <Toolbar>
         {/* Logo or title */}
-        <Typography variant="h5" component="div" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
+        <Typography variant="h5" component="div" sx={{ flexGrow: 1, fontWeight: 'bold', }}>
          🕹️ Activity Logger 🖥️
         </Typography>
 
