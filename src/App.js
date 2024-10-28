@@ -9,16 +9,35 @@ import { exportToPDF, exportLogs, importLogs } from './utils/exportUtils';
 import { Line } from 'react-chartjs-2';
 import 'chart.js/auto';
 
-// Helper function to count activities per weekday
-const countActivitiesByWeekday = (logs) => {
-  const counts = { Monday: 0, Tuesday: 0, Wednesday: 0, Thursday: 0, Friday: 0, Saturday: 0, Sunday: 0 };
+// Helper function to count activities per day for the last 7 actual dates
+const countActivitiesByLast7Dates = (logs) => {
+  const counts = {};
+  const today = new Date();
+  const sevenDaysAgo = new Date(today);
+  sevenDaysAgo.setDate(today.getDate() - 7);
+
+  // Initialize counts for the last 7 dates
+  for (let i = 0; i <= 6; i++) {
+    const date = new Date();
+    date.setDate(today.getDate() - i);
+    const dateString = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    counts[dateString] = 0;
+  }
+
+  // Count activities for the last 7 dates
   logs.forEach((log) => {
     const logDate = new Date(log.date);
-    const weekday = logDate.toLocaleDateString('en-US', { weekday: 'long' });
-    counts[weekday]++;
+    if (logDate >= sevenDaysAgo && logDate <= today) {
+      const dateString = logDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      if (counts[dateString] !== undefined) {
+        counts[dateString]++;
+      }
+    }
   });
+
   return counts;
 };
+
 
 // Helper function to get the total activities of the current month
 const getMonthlyActivityCount = (logs) => {
@@ -26,16 +45,13 @@ const getMonthlyActivityCount = (logs) => {
   return logs.filter(log => new Date(log.date).getMonth() === currentMonth).length;
 };
 
-// Activity Chart Component
-// Activity Chart Component
 const ActivityChart = ({ logs }) => {
-  const activityCounts = countActivitiesByWeekday(logs);
-  const categoryCounts = countActivitiesByCategory(logs); // New function for category counts
-  const weekdayLabels = Object.keys(activityCounts);
-  const dataValues = Object.values(activityCounts);
+  const activityCounts = countActivitiesByLast7Dates(logs);
+  const dateLabels = Object.keys(activityCounts).reverse();  // Reverse the date labels to start from the earliest
+  const dataValues = Object.values(activityCounts).reverse(); // Reverse the data values to match the dates
 
   const chartData = {
-    labels: weekdayLabels,
+    labels: dateLabels,
     datasets: [
       {
         label: 'Activities Count',
@@ -54,20 +70,19 @@ const ActivityChart = ({ logs }) => {
     <Box>
       {/* Total Activity Count */}
       <Typography
-        variant="h6" color="primary" align="center" sx={{ fontWeight: 'bold', mb:0.5 }}
+        variant="h6" color="primary" align="center" sx={{ fontWeight: 'bold', mb: 0.5 }}
       >
         Monthly Acts: {monthlyActivityCount}
       </Typography>
       <Divider sx={{ borderColor: '#FFB52E' }} />
       {/* Activity Counts by Category */}
-      <Box sx={{mt:0.5}}>
-        {Object.entries(categoryCounts).map(([category, count]) => (
-          <Typography key={category} align="center" color="#FFFFFF" sx={{ fontWeight: 'medium'}}>
+      <Box sx={{ mt: 0.5 }}>
+        {Object.entries(countActivitiesByCategory(logs)).map(([category, count]) => (
+          <Typography key={category} align="center" color="#FFFFFF" sx={{ fontWeight: 'medium' }}>
             {category}: {count}
           </Typography>
         ))}
       </Box>
-
       {/* Line Chart */}
       <Box
         sx={{
@@ -84,14 +99,24 @@ const ActivityChart = ({ logs }) => {
             scales: {
               x: {
                 ticks: {
-                  display: false, // Hide x-axis ticks
+                  display: false, // Display date labels on the x-axis
                 },
               },
               y: {
                 beginAtZero: true,
                 ticks: {
-                  display: false, // Hide y-axis ticks
+                  display: false, // Display y-axis ticks
                 },
+              },
+            }, elements: {
+              line: {
+                tension: 0.4, // Smoothing the line
+                borderWidth: 2,
+                borderColor: 'blue', // Line color
+                fill: true, // Enable filling the area below the line
+              },
+              point: {
+                radius: 0.5, // Hides points on the line
               },
             },
             plugins: {
@@ -102,10 +127,11 @@ const ActivityChart = ({ logs }) => {
           }}
         />
       </Box>
-
     </Box>
   );
 };
+
+
 
 // Helper function to count activities by category
 const countActivitiesByCategory = (logs) => {
@@ -219,14 +245,16 @@ function App() {
       }}>
         <Button style={{
           color: 'black',
-          backgroundColor: 'white',
+          backgroundColor: 'black',
           width: '70px',
           height: '70px',
           fontSize: '50px',
           fontWeight: 'bold',
           borderRadius: '50%'
-        }} variant="contained" color="primary" onClick={() => setOpenLogForm(true)}>
-          ➕
+        }} variant="outlined" color="secondary" onClick={() => setOpenLogForm(true)}>
+          <div style={{ color: 'transparent', textShadow: '0 0 0 #FFB52E', fontSize: '50px' }}>
+            ➕
+          </div>
         </Button>
       </Box>
 

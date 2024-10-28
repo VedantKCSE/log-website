@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AppBar, Toolbar, Typography, Button, Box, IconButton, Drawer, List, ListItem, ListItemText, useMediaQuery } from '@mui/material';
+import { AppBar, Toolbar, Typography, Button, Box, IconButton, Drawer, List, ListItem, ListItemText, useMediaQuery, Divider } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useTheme } from '@mui/material/styles';
 
@@ -86,6 +86,7 @@ const Navbar = ({ exportToPDF, exportLogs, importLogsHandler }) => {
           </Box>
         )}
       </Toolbar>
+      <Divider sx={{ borderColor: '#FFB52E', borderWidth: 1 }} />
     </AppBar>
   );
 };
