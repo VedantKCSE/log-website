@@ -18,8 +18,20 @@ const months = [
 
 const FilterBar = ({ selectedCategory, setSelectedCategory, selectedMonth, setSelectedMonth, selectedYear, setSelectedYear }) => {
   return (
-    <Paper elevation={3} sx={{ padding: 2, height: '100%', display: 'flex', flexDirection: 'column' }}>
-      <Typography variant="h6" gutterBottom sx={{fontWeight: 'bold' }}>
+    <Paper
+      elevation={3}
+      sx={{
+        padding: 2,
+        display: 'flex',
+        flexDirection: 'column',
+        border: '1px solid #FFB52E',
+        borderRadius: '12px',
+        backgroundColor: 'rgba(41, 41, 41, 0.8)', // Semi-transparent background
+        backdropFilter: 'blur(10px)',  // Glassmorphism blur effect
+        boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)' // Subtle shadow for depth
+      }}
+    >
+      <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold' }}>
         🔎 Filters
       </Typography>
       <FormControl sx={{ minWidth: 120, marginBottom: 2 }}>
