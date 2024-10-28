@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Typography, Paper, Stack, Chip, TextField } from '@mui/material';
 import dayjs from 'dayjs';
 
-const FilterBar = ({ selectedCategory, setSelectedCategory, selectedMonth, setSelectedMonth, selectedYear, setSelectedYear, searchTerm, setSearchTerm }) => {
+const FilterBar = ({ selectedCategory, setSelectedCategory, selectedMonth, setSelectedMonth, selectedYear, setSelectedYear, searchTerm, setSearchTerm, logs }) => {
   const [categories, setCategories] = useState([]);
   const [months, setMonths] = useState([]);
   const [years, setYears] = useState([]);
@@ -16,7 +16,7 @@ const FilterBar = ({ selectedCategory, setSelectedCategory, selectedMonth, setSe
     setCategories(uniqueCategories);
     setMonths(uniqueMonths);
     setYears(uniqueYears);
-  }, []);
+  }, [logs]);
 
   const handleChipClick = (type, value) => {
     if (type === 'category') {
