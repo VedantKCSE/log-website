@@ -87,6 +87,7 @@ function App() {
               setSelectedYear={setSelectedYear}
               searchTerm={searchTerm}
               setSearchTerm={setSearchTerm}
+              logs={logs} 
             /></> : (
               <Button
                 variant="outlined"
@@ -113,6 +114,7 @@ function App() {
               setSelectedYear={setSelectedYear}
               searchTerm={searchTerm}
               setSearchTerm={setSearchTerm}
+              logs={logs} 
             />
           )}
         </Box>
