@@ -1,78 +1,112 @@
-import React from 'react';
-import { FormControl, InputLabel, Select, MenuItem, Typography, Paper } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Typography, Paper, Stack, Chip, TextField } from '@mui/material';
+import dayjs from 'dayjs';
 
-const months = [
-  { value: '01', label: 'January' },
-  { value: '02', label: 'February' },
-  { value: '03', label: 'March' },
-  { value: '04', label: 'April' },
-  { value: '05', label: 'May' },
-  { value: '06', label: 'June' },
-  { value: '07', label: 'July' },
-  { value: '08', label: 'August' },
-  { value: '09', label: 'September' },
-  { value: '10', label: 'October' },
-  { value: '11', label: 'November' },
-  { value: '12', label: 'December' },
-];
+const FilterBar = ({ selectedCategory, setSelectedCategory, selectedMonth, setSelectedMonth, selectedYear, setSelectedYear, searchTerm, setSearchTerm }) => {
+  const [categories, setCategories] = useState([]);
+  const [months, setMonths] = useState([]);
+  const [years, setYears] = useState([]);
 
-const FilterBar = ({ selectedCategory, setSelectedCategory, selectedMonth, setSelectedMonth, selectedYear, setSelectedYear }) => {
+  useEffect(() => {
+    const logs = JSON.parse(localStorage.getItem('logs') || '[]');
+    const uniqueCategories = ['All', ...new Set(logs.map(log => log.category))];
+    const uniqueMonths = ['All', ...new Set(logs.map(log => dayjs(log.date, 'MM/DD/YYYY, hh:mm:ss A').format('MM')))];
+
+    const uniqueYears = ['All', ...new Set(logs.map(log => dayjs(log.date, 'MM/DD/YYYY, hh:mm:ss A').format('YYYY')))];
+    setCategories(uniqueCategories);
+    setMonths(uniqueMonths);
+    setYears(uniqueYears);
+  }, []);
+
+  const handleChipClick = (type, value) => {
+    if (type === 'category') {
+      setSelectedCategory(value);
+    } else if (type === 'month') {
+      setSelectedMonth(value);
+    } else if (type === 'year') {
+      setSelectedYear(value);
+    }
+  };
+
   return (
     <Paper
       elevation={3}
       sx={{
-        padding: 2,
+        padding: 1,
         display: 'flex',
         flexDirection: 'column',
         border: '1px solid #FFB52E',
         borderRadius: '12px',
-        backgroundColor: 'rgba(41, 41, 41, 0.8)', // Semi-transparent background
-        backdropFilter: 'blur(10px)',  // Glassmorphism blur effect
-        boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)' // Subtle shadow for depth
+        backgroundColor: 'rgba(41, 41, 41, 0.8)',
+        backdropFilter: 'blur(10px)',
+        boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)'
       }}
     >
       <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold' }}>
         🔎 Filters
       </Typography>
-      <FormControl sx={{ minWidth: 120, marginBottom: 2 }}>
-        <InputLabel>Category</InputLabel>
-        <Select
-          value={selectedCategory}
-          onChange={(e) => setSelectedCategory(e.target.value)}
-        >
-          <MenuItem value="All">All</MenuItem>
-          <MenuItem value="Learning">Learning</MenuItem>
-          <MenuItem value="Courses">Courses</MenuItem>
-          <MenuItem value="Project">Project</MenuItem>
-          <MenuItem value="Self-Development">Self-Development</MenuItem>
-        </Select>
-      </FormControl>
 
-      <FormControl sx={{ minWidth: 120, marginBottom: 2 }}>
-        <InputLabel>Month</InputLabel>
-        <Select
-          value={selectedMonth}
-          onChange={(e) => setSelectedMonth(e.target.value)}
-        >
-          <MenuItem value="All">All</MenuItem>
-          {months.map((month) => (
-            <MenuItem key={month.value} value={month.value}>{month.label}</MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+      {/* Search Input */}
+      <TextField
+        variant="outlined"
+        placeholder="Search logs..."
+        sx={{
+          '& .MuiOutlinedInput-root': {
+            padding: '0px', // Set padding to 0 to reduce height
+            height: '30px', // Set desired height
+            '& input': {
+              padding: '0px 8px', // Adjust input padding for better appearance
+            },
+          },
+        }}
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
 
-      <FormControl sx={{ minWidth: 120 }}>
-        <InputLabel>Year</InputLabel>
-        <Select
-          value={selectedYear}
-          onChange={(e) => setSelectedYear(e.target.value)}
-        >
-          <MenuItem value="All">All</MenuItem>
-          {Array.from(new Array(5), (v, i) => new Date().getFullYear() - i).map((year) => (
-            <MenuItem key={year} value={year}>{year}</MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+      {/* Category Filter */}
+      <Typography variant="subtitle1" gutterBottom>
+        Category:
+      </Typography>
+      <Stack direction="row" gap={1} spacing={1} sx={{ flexWrap: 'wrap' }}>
+        {categories.map((category) => (
+          <Chip
+            key={category}
+            label={category}
+            onClick={() => handleChipClick('category', category)}
+            color={selectedCategory === category ? 'primary' : 'default'}
+          />
+        ))}
+      </Stack>
+
+      {/* Month Filter */}
+      <Typography variant="subtitle1" gutterBottom>
+        Month:
+      </Typography>
+      <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap' }}>
+        {months.map((month) => (
+          <Chip
+            key={month}
+            label={month === 'All' ? 'All' : dayjs(`2024-${month}-01`).format('MMMM')}
+            onClick={() => handleChipClick('month', month)}
+            color={selectedMonth === month ? 'primary' : 'default'}
+          />
+        ))}
+      </Stack>
+
+      {/* Year Filter */}
+      <Typography variant="subtitle1" gutterBottom>
+        Year:
+      </Typography>
+      <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap' }}>
+        {years.map((year) => (
+          <Chip
+            key={year}
+            label={year}
+            onClick={() => handleChipClick('year', year)}
+            color={selectedYear === year ? 'primary' : 'default'}
+          />
+        ))}
+      </Stack>
     </Paper>
   );
 };
