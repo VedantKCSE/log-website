@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { List, ListItem, ListItemText, Paper, Typography, Button, Box, Divider } from '@mui/material';
 
-const LogList = () => {
-  const [logs, setLogs] = useState([]);
+const LogList = ({logs}) => {
   const [streak, setStreak] = useState(0);
   const [maxStreak, setMaxStreak] = useState(0);
 
   useEffect(() => {
     // Retrieve logs from local storage
-    const storedLogs = JSON.parse(localStorage.getItem('logs')) || [];
-    setLogs(storedLogs);
+    const storedLogs = logs || [];
     calculateStreak(storedLogs);
-  }, []);
+  });
 
   const calculateStreak = (logs) => {
     // Create a Set to hold unique dates from logs
